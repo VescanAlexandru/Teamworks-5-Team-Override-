@@ -371,6 +371,7 @@
     <Compile Include="Packages\com.unity.textmeshpro\Scripts\Runtime\TMPro_UGUI_Private.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Mega Fantasy Props Pack\README.txt" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
     <None Include="Assets\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
@@ -392,6 +393,17 @@
     <None Include="Assets\ZRNAssets\Skyboxes\_skybox info.txt" />
     <None Include="Assets\ZRNAssets\license_en.txt" />
     <None Include="Assets\ZRNAssets\license_jp.txt" />
+    <None Include="Assets\_Plugins\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
+    <None Include="Assets\_Plugins\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
+    <None Include="Assets\_Plugins\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
+    <None Include="Assets\_Plugins\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
+    <None Include="Assets\_Plugins\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
+    <None Include="Assets\_Plugins\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+    <None Include="Assets\_Plugins\SteamVR\Resources\SteamVR_ClearAll.shader" />
+    <None Include="Assets\_Plugins\SteamVR\Resources\SteamVR_ColorOut.shader" />
+    <None Include="Assets\_Plugins\SteamVR\Resources\SteamVR_Fade.shader" />
+    <None Include="Assets\_Plugins\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
+    <None Include="Assets\_Plugins\SteamVR\readme.txt" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Dark.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Styles\Main_Light.uss" />
     <None Include="Packages\com.unity.package-manager-ui\Editor\Resources\Templates\Alert.uxml" />
