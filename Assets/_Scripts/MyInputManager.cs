@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class MyInputManager : MonoBehaviour { 
+public class MyInputManager : NetworkBehaviour {
+
+    public GameObject head;
+    private GameObject player;
     
     public float runningSpeed = 1.0f;
     public Transform rightControllerTransform;
@@ -49,6 +53,13 @@ public class MyInputManager : MonoBehaviour {
 
     void Update()
     {
+       /* if (isServer)
+        {
+            if (player != null)
+            {
+                selectedUnit = GameObject.Find("Unit(Clone)");
+            }
+        }*/
         //left
         newPosLeft = leftControllerTransform.position;
         newParentPosLeft = cameraRig.transform.position;
@@ -69,6 +80,16 @@ public class MyInputManager : MonoBehaviour {
 
         //Movement
         UpdateRunning();
+        //Debug.Log(player);
+        //player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
+        Debug.Log(player);
+        if (player != null)
+        {
+            player.transform.position = head.transform.position - new Vector3(0, 1, 0);
+        } else
+        {
+            player = GameObject.Find("PlayerNetworkObject(Clone)");
+        }
     }
 
     public void SetRightController(SteamVR_Controller.Device controller)
@@ -83,7 +104,6 @@ public class MyInputManager : MonoBehaviour {
 
     public void LeftTouchPadPress()
     {
-        Debug.Log("HERE press");
         leftTouchPadPress = true;
         newPosLeft = leftControllerTransform.position;
     }
@@ -142,7 +162,6 @@ public class MyInputManager : MonoBehaviour {
 
         if (leftTouchPadPress && rightTouchPadPress)
         {
-            Debug.Log("Force");
             cameraRigRigid.AddForce((Vector3.Magnitude(controllerVelocityLeft) + Vector3.Magnitude(controllerVelocityRight)) / 2 * runningSpeed * new Vector3(Mathf.Cos((leftY + rightY) / 2),
                 0,
                 Mathf.Sin((leftY + rightY) / 2)));
@@ -151,7 +170,6 @@ public class MyInputManager : MonoBehaviour {
 
         if (leftTouchPadPress)
         {
-            Debug.Log("Force");
             cameraRigRigid.AddForce(Vector3.Magnitude(controllerVelocityLeft) * runningSpeed * new Vector3(Mathf.Cos(leftY),
                 0,
                 Mathf.Sin(leftY)));
@@ -160,7 +178,6 @@ public class MyInputManager : MonoBehaviour {
 
         if (rightTouchPadPress)
         {
-            Debug.Log("Force");
             cameraRigRigid.AddForce(Vector3.Magnitude(controllerVelocityRight) * runningSpeed * new Vector3(Mathf.Cos(rightY),
                 0,
                 Mathf.Sin(rightY)));

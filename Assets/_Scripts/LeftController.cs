@@ -28,7 +28,6 @@ public class LeftController : MonoBehaviour
 
         if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
-            Debug.Log("LEFT");
             inputManager.LeftTouchPadPress();
         }
 
