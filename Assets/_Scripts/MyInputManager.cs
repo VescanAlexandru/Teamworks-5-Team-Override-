@@ -82,7 +82,7 @@ public class MyInputManager : NetworkBehaviour {
         UpdateRunning();
         //Debug.Log(player);
         //player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
-        Debug.Log(player);
+        //Debug.Log(player);
         if (player != null)
         {
             player.transform.position = head.transform.position - new Vector3(0, 1, 0);
