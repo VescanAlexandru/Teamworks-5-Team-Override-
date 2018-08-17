@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class MyInputManager : NetworkBehaviour {
 
     public GameObject head;
-    private GameObject player;
+    private Player player;
     
     public float runningSpeed = 1.0f;
     public Transform rightControllerTransform;
@@ -53,6 +53,10 @@ public class MyInputManager : NetworkBehaviour {
 
     void Update()
     {
+        if (player == null)
+        {
+            return;
+        }
        /* if (isServer)
         {
             if (player != null)
@@ -81,15 +85,8 @@ public class MyInputManager : NetworkBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
-        //player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
+        player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
         //Debug.Log(player);
-        if (player != null)
-        {
-            player.transform.position = head.transform.position - new Vector3(0, 1, 0);
-        } else
-        {
-            player = GameObject.Find("PlayerNetworkObject(Clone)");
-        }
     }
 
     public void SetRightController(SteamVR_Controller.Device controller)
@@ -183,5 +180,11 @@ public class MyInputManager : NetworkBehaviour {
                 Mathf.Sin(rightY)));
             return;
         }
+    }
+
+    public void SetPlayer(Player player)
+    {
+        Debug.Log("player set");
+        this.player = player;
     }
 }
