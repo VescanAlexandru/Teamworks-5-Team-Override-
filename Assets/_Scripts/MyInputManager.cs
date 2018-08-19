@@ -85,7 +85,26 @@ public class MyInputManager : NetworkBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
-        player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
+        player.head.transform.position = head.transform.position;
+        player.head.transform.rotation = head.transform.rotation;
+        player.leftHand.transform.position = leftControllerTransform.position;
+        player.leftHand.transform.rotation = leftControllerTransform.rotation;
+        player.rightHand.transform.position = rightControllerTransform.position;
+        player.rightHand.transform.rotation = rightControllerTransform.rotation;
+
+        /* Debug.Log(head.transform.rotation.eulerAngles.x);
+        float lookFactor;
+        if (head.transform.rotation.eulerAngles.x < 60.0f)
+        {
+            lookFactor = Mathf.Max(0.0f, head.transform.rotation.eulerAngles.x / 300f);
+        } else if (head.transform.rotation.eulerAngles.x < 80.0f)
+        {
+            lookFactor = 0.2f;
+        } else
+        {
+            lookFactor = 0.0f;
+        }*/
+        //player.body.transform.position = head.transform.position - new Vector3(Mathf.Sin(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor, 0.7f, Mathf.Cos(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor);
         //Debug.Log(player);
     }
 

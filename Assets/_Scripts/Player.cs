@@ -5,6 +5,11 @@ using UnityEngine.Networking;
 
 public class Player : NetworkBehaviour {
 
+    public GameObject head;
+    public GameObject leftHand;
+    public GameObject rightHand;
+    //public GameObject body;
+
 	// Use this for initialization
 	void Start () {
 		if (isLocalPlayer)
