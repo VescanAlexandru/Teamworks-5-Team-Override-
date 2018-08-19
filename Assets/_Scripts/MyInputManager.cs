@@ -5,6 +5,8 @@ using UnityEngine.Networking;
 
 public class MyInputManager : NetworkBehaviour {
 
+    public SphereCollider containerCollider;
+    public SphereCollider groundCollider;
     public GameObject head;
     private Player player;
     
@@ -53,10 +55,6 @@ public class MyInputManager : NetworkBehaviour {
 
     void Update()
     {
-        if (player == null)
-        {
-            return;
-        }
        /* if (isServer)
         {
             if (player != null)
@@ -85,13 +83,21 @@ public class MyInputManager : NetworkBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
+
+        Debug.Log(new Vector3(head.transform.position.x - transform.position.x, 0, head.transform.position.z - leftControllerTransform.position.z));
+        containerCollider.center = new Vector3(head.transform.position.x - transform.position.x, containerCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
+        groundCollider.center = new Vector3(head.transform.position.x - transform.position.x, groundCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
+
+        if (player == null)
+        {
+            return;
+        }
         player.head.transform.position = head.transform.position;
         player.head.transform.rotation = head.transform.rotation;
         player.leftHand.transform.position = leftControllerTransform.position;
         player.leftHand.transform.rotation = leftControllerTransform.rotation;
         player.rightHand.transform.position = rightControllerTransform.position;
         player.rightHand.transform.rotation = rightControllerTransform.rotation;
-
         /* Debug.Log(head.transform.rotation.eulerAngles.x);
         float lookFactor;
         if (head.transform.rotation.eulerAngles.x < 60.0f)
