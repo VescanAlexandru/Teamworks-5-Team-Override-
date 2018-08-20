@@ -300,9 +300,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\_Scripts\infoPlayer.cs" />
+    <Compile Include="Assets\_Scripts\GroundCheck.cs" />
     <Compile Include="Assets\_Scripts\LeftController.cs" />
     <Compile Include="Assets\_Scripts\MyInputManager.cs" />
+    <Compile Include="Assets\_Scripts\Player.cs" />
     <Compile Include="Assets\_Scripts\RightController.cs" />
     <Compile Include="Assets\Alex\ArmSwinger.cs" />
     <Compile Include="Assets\Alex\HeadsetCollider.cs" />
