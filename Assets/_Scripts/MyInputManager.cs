@@ -5,10 +5,8 @@ using UnityEngine.Networking;
 
 public class MyInputManager : NetworkBehaviour {
 
-    public SphereCollider containerCollider;
-    public SphereCollider groundCollider;
     public GameObject head;
-    private Player player;
+    private GameObject player;
     
     public float runningSpeed = 1.0f;
     public Transform rightControllerTransform;
@@ -83,35 +81,15 @@ public class MyInputManager : NetworkBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
-
-        Debug.Log(new Vector3(head.transform.position.x - transform.position.x, 0, head.transform.position.z - leftControllerTransform.position.z));
-        containerCollider.center = new Vector3(head.transform.position.x - transform.position.x, containerCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
-        groundCollider.center = new Vector3(head.transform.position.x - transform.position.x, groundCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
-
-        if (player == null)
+        //player.gameObject.transform.position = head.transform.position - new Vector3(0, 1, 0);
+        //Debug.Log(player);
+        if (player != null)
         {
-            return;
-        }
-        player.head.transform.position = head.transform.position;
-        player.head.transform.rotation = head.transform.rotation;
-        player.leftHand.transform.position = leftControllerTransform.position;
-        player.leftHand.transform.rotation = leftControllerTransform.rotation;
-        player.rightHand.transform.position = rightControllerTransform.position;
-        player.rightHand.transform.rotation = rightControllerTransform.rotation;
-        /* Debug.Log(head.transform.rotation.eulerAngles.x);
-        float lookFactor;
-        if (head.transform.rotation.eulerAngles.x < 60.0f)
-        {
-            lookFactor = Mathf.Max(0.0f, head.transform.rotation.eulerAngles.x / 300f);
-        } else if (head.transform.rotation.eulerAngles.x < 80.0f)
-        {
-            lookFactor = 0.2f;
+            player.transform.position = head.transform.position - new Vector3(0, 1, 0);
         } else
         {
-            lookFactor = 0.0f;
-        }*/
-        //player.body.transform.position = head.transform.position - new Vector3(Mathf.Sin(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor, 0.7f, Mathf.Cos(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor);
-        //Debug.Log(player);
+            player = GameObject.Find("PlayerNetworkObject(Clone)");
+        }
     }
 
     public void SetRightController(SteamVR_Controller.Device controller)
@@ -205,11 +183,5 @@ public class MyInputManager : NetworkBehaviour {
                 Mathf.Sin(rightY)));
             return;
         }
-    }
-
-    public void SetPlayer(Player player)
-    {
-        Debug.Log("player set");
-        this.player = player;
     }
 }
