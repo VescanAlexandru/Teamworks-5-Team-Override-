@@ -9,13 +9,15 @@ public class Player : NetworkBehaviour {
     public GameObject head;
     public GameObject leftHand;
     public GameObject rightHand;
-    //public GameObject body;
+    public MeshRenderer headRenderer;
+    public MeshRenderer leftRenderer;
+    public MeshRenderer rightRenderer;
 
 
     public PlayerManager playerManager;
     private bool alive;
     private string playerName;
-    private string role;
+    public PlayerManager.RoleEnum role;
     private Material playerMaterial;
 
     private bool hasRole;
@@ -71,16 +73,17 @@ public class Player : NetworkBehaviour {
         return playerName;
     }
 
-    public void AssignRole(string r)
+    public void AssignRole(PlayerManager.RoleEnum r)
     {
         role = r;
         hasRole = true;
-        switch (role)
+        
+        /*switch (role)
         {
-            case "Saboteur":
+            case PlayerManager.RoleEnum.Saboteur:
                 for (int i = 0; i < playerManager.playerList.Count; i++)
                 {
-                    if (playerManager.playerList[i].GetRole() == "Innocent")
+                    if (playerManager.playerList[i].GetRole() == PlayerManager.RoleEnum.Innocent)
                     {
                         playerManager.playerList[i].GetComponent<TextMeshProUGUI>().color = Color.green;
                     }
@@ -90,16 +93,16 @@ public class Player : NetworkBehaviour {
                     }
                 }
                 break;
-            case "Innocent":
+            case PlayerManager.RoleEnum.Innocent:
                 for (int i = 0; i < playerManager.playerList.Count; i++)
                 {
                     playerManager.playerList[i].GetComponent<TextMeshProUGUI>().color = Color.green;
                 }
                 break;
-        }
+        }*/
     }
 
-    public string GetRole()
+    public PlayerManager.RoleEnum GetRole()
     {
         return role;
     }
@@ -112,7 +115,10 @@ public class Player : NetworkBehaviour {
     public void SetColor(Material m)
     {
         playerMaterial = m;
-        this.GetComponentInChildren<MeshRenderer>().material = m;
+        //this.GetComponentInChildren<MeshRenderer>().material = m;
+        headRenderer.material = m;
+        leftRenderer.material = m;
+        rightRenderer.material = m;
     }
 
     public Material GetMaterial()
@@ -124,6 +130,13 @@ public class Player : NetworkBehaviour {
     {
         alive = false;
         Debug.Log("Player has been eliminated");
+        if (role == PlayerManager.RoleEnum.Innocent)
+        {
+            playerManager.NumInno--;
+        } else
+        {
+            playerManager.NumSab--;
+        }
         //show that this player is dead by placing player sideways on ground
 
         //this.GetComponent<Transform>().rotation.y ==

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33268169698502078}
   - component: {fileID: 23855120709378232}
   - component: {fileID: 65984611612286054}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Headset
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 23570157690653964}
   - component: {fileID: 135192196538611738}
   - component: {fileID: 54304162324256096}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Head
   m_TagString: PlayerHead
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 135147937866605326}
   - component: {fileID: 114301810912275288}
   - component: {fileID: 54020405046532366}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 223673855570722064}
   - component: {fileID: 114879815330540056}
   - component: {fileID: 114728155505494044}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 135174472218785250}
   - component: {fileID: 114164882877013228}
   - component: {fileID: 54202360039279916}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 224833968170760974}
   - component: {fileID: 222041358591092586}
   - component: {fileID: 114873113887116922}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: PlayerTag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,6 +492,9 @@ MonoBehaviour:
   head: {fileID: 1133606103065580}
   leftHand: {fileID: 1537540485431078}
   rightHand: {fileID: 1159560364563792}
+  headRenderer: {fileID: 0}
+  leftRenderer: {fileID: 0}
+  rightRenderer: {fileID: 0}
   playerManager: {fileID: 0}
   playerNameText: {fileID: 114873113887116922}
 --- !u!114 &114492632153494608
@@ -634,6 +637,9 @@ MonoBehaviour:
   head: {fileID: 1133606103065580}
   leftHand: {fileID: 1537540485431078}
   rightHand: {fileID: 1159560364563792}
+  headRenderer: {fileID: 0}
+  leftRenderer: {fileID: 0}
+  rightRenderer: {fileID: 0}
   playerManager: {fileID: 0}
   playerNameText: {fileID: 114873113887116922}
 --- !u!114 &114873113887116922

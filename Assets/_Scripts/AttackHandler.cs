@@ -6,7 +6,7 @@ public class AttackHandler : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerHead"))
+        if (other.CompareTag("PlayerHead") && other.transform.parent != transform.parent) //Don't eliminate self
         {
             other.GetComponent<Player>().Eliminate();
         }

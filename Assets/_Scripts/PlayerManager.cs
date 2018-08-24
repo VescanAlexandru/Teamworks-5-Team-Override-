@@ -1,19 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : NetworkBehaviour
 {
-
     public int numPlayers;
     public int ratioPlayersToSab = 4; //1 sab for every 4 players
 
     private int numSab; //saboteur
+    public int NumSab
+    {
+        get { return numSab; }
+        set { numSab = value; }
+    }
     private int numInno; //innocent
-    private int numDet; //detective
+    public int NumInno
+    {
+        get { return numInno; }
+        set { numInno = value; }
+    }
+    //private int numDet; //detective
 
     public List<Player> playerList;
     public List<Material> colorList;
+    public bool playersGenerated;
+    public enum RoleEnum { Innocent, Saboteur };
 
     private List<string> randomNameList = new List<string>
     {
@@ -32,9 +44,10 @@ public class PlayerManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        numDet = 1;
+        //numDet = 1;
         numSab = numPlayers / ratioPlayersToSab;
-        numInno = numPlayers - numDet - numSab;
+        numInno = numPlayers - /*numDet*/ - numSab;
+        playersGenerated = false;
     }
 
     // Update is called once per frame
@@ -43,12 +56,12 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    void GeneratePlayers(int numPlayers)
+    public void GeneratePlayers()
     {
         playerList = new List<Player>(numPlayers);
 
         //assigning one detective role
-        playerList[Random.Range(0, numPlayers)].AssignRole("Detective");
+        //playerList[Random.Range(0, numPlayers)].AssignRole("Detective");
 
         int randNum;
         //assigning random saboteur roles
@@ -62,7 +75,7 @@ public class PlayerManager : MonoBehaviour
             }
             while (playerList[randNum].HasRole());
 
-            playerList[randNum].AssignRole("Saboteur");
+            playerList[randNum].AssignRole(RoleEnum.Saboteur);
 
         }
 
@@ -71,10 +84,14 @@ public class PlayerManager : MonoBehaviour
         {
             if (!playerList[i].HasRole())
             {
-                playerList[i].AssignRole("Innocent");
+                playerList[i].AssignRole(RoleEnum.Innocent);
             }
         }
 
+        GeneratePlayerNames();
+        AssignPlayerColors();
+
+        playersGenerated = true;
     }
 
     public void GeneratePlayerNames()
@@ -98,5 +115,11 @@ public class PlayerManager : MonoBehaviour
             playerList[i].SetColor(colorList[randNum]);
             colorList.RemoveAt(randNum);
         }
+    }
+
+    public bool HasAllPlayers()
+    {
+        //TODO
+        return true;
     }
 }
