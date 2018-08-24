@@ -52,6 +52,8 @@ public class Player : NetworkBehaviour {
         }
         alive = true;
         hasRole = false;
+        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
     }
 	
 	// Update is called once per frame
@@ -110,7 +112,7 @@ public class Player : NetworkBehaviour {
     public void SetColor(Material m)
     {
         playerMaterial = m;
-        this.GetComponentInParent<MeshRenderer>().material = m;
+        this.GetComponentInChildren<MeshRenderer>().material = m;
     }
 
     public Material GetMaterial()

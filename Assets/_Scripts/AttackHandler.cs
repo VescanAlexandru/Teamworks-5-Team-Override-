@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class AttackHandler : MonoBehaviour {
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("MainCamera"))
+        if (other.CompareTag("PlayerHead"))
         {
-            collision.gameObject.GetComponent<Player>().Eliminate();
+            other.GetComponent<Player>().Eliminate();
         }
     }
 }
