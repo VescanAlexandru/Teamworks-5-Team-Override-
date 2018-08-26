@@ -44,7 +44,9 @@ namespace Valve.VR.InteractionSystem
 		// Singleton instance of the Player. Only one can exist at a time.
 		//-------------------------------------------------
 		private static Player _instance;
-		public static Player instance
+        internal object head;
+
+        public static Player instance
 		{
 			get
 			{
