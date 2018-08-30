@@ -3,8 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class ToggleEvent : UnityEvent<bool> { }
 
 public class Player : NetworkBehaviour {
+
+    [SyncVar(hook = "OnNameChanged")] public string playerName;
+    [SyncVar(hook = "OnColorChanged")] public Color playerColor;
+    [SyncVar (hook = "OnRoleChanged")] public PlayerManager.RoleEnum role;
+    [SyncVar] public bool alive;
 
     public GameObject head;
     public GameObject leftHand;
@@ -12,22 +21,26 @@ public class Player : NetworkBehaviour {
     public MeshRenderer headRenderer;
     public MeshRenderer leftRenderer;
     public MeshRenderer rightRenderer;
+    private TextMeshProUGUI textMeshPro;
 
+    static List<Player> players = new List<Player>();
 
-    public PlayerManager playerManager;
-    private bool alive;
-    private string playerName;
-    public PlayerManager.RoleEnum role;
+    private PlayerManager playerManager;
     private Material playerMaterial;
-
-    private bool hasRole;
 
     public TextMeshProUGUI playerNameText;
 
 
+    [SerializeField] ToggleEvent onToggleShared;
+    [SerializeField] ToggleEvent onToggleLocal;
+    [SerializeField] ToggleEvent onToggleRemote;
+
+
     // Use this for initialization
     void Start () {
-		if (isLocalPlayer)
+        EnablePlayer();
+
+        if (isLocalPlayer)
         {
             GameObject playerContainer = GameObject.Find("PlayerContainer");
             if (playerContainer != null)
@@ -53,92 +66,111 @@ public class Player : NetworkBehaviour {
             }
         }
         alive = true;
-        hasRole = false;
         playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        //turn everyone's tags so that it is perpendicular to the player's vision
-    }
-    public void AssignName(string n)
+
+    [ServerCallback]
+    void OnEnable()
     {
-        playerName = n;
-        playerNameText.GetComponent<TextMeshProUGUI>().text = playerName;
+        if (!players.Contains(this))
+            players.Add(this);
     }
 
-    public string GetName()
+    [ServerCallback]
+    void OnDisable()
     {
-        return playerName;
-    }
-
-    public void AssignRole(PlayerManager.RoleEnum r)
-    {
-        role = r;
-        hasRole = true;
-        
-        /*switch (role)
-        {
-            case PlayerManager.RoleEnum.Saboteur:
-                for (int i = 0; i < playerManager.playerList.Count; i++)
-                {
-                    if (playerManager.playerList[i].GetRole() == PlayerManager.RoleEnum.Innocent)
-                    {
-                        playerManager.playerList[i].GetComponent<TextMeshProUGUI>().color = Color.green;
-                    }
-                    else if (playerManager.playerList[i].GetRole() == "Saboteur")
-                    {
-                        playerManager.playerList[i].GetComponent<TextMeshProUGUI>().color = Color.red;
-                    }
-                }
-                break;
-            case PlayerManager.RoleEnum.Innocent:
-                for (int i = 0; i < playerManager.playerList.Count; i++)
-                {
-                    playerManager.playerList[i].GetComponent<TextMeshProUGUI>().color = Color.green;
-                }
-                break;
-        }*/
-    }
-
-    public PlayerManager.RoleEnum GetRole()
-    {
-        return role;
-    }
-
-    public bool HasRole()
-    {
-        return hasRole;
-    }
-
-    public void SetColor(Material m)
-    {
-        playerMaterial = m;
-        //this.GetComponentInChildren<MeshRenderer>().material = m;
-        headRenderer.material = m;
-        leftRenderer.material = m;
-        rightRenderer.material = m;
-    }
-
-    public Material GetMaterial()
-    {
-        return playerMaterial;
+        if (players.Contains(this))
+            players.Remove(this);
     }
     
+    [Server]
     public void Eliminate()
     {
-        alive = false;
+        DisablePlayer();
         Debug.Log("Player has been eliminated");
-        if (role == PlayerManager.RoleEnum.Innocent)
-        {
-            playerManager.NumInno--;
-        } else
-        {
-            playerManager.NumSab--;
-        }
+        playerManager.RemovePlayer(this);
+        RpcProcessPlayerElimination();
         //show that this player is dead by placing player sideways on ground
 
         //this.GetComponent<Transform>().rotation.y ==
+    }
+
+    void DisablePlayer()
+    {
+        onToggleShared.Invoke(false);
+
+        if (isLocalPlayer)
+            onToggleLocal.Invoke(false);
+        else
+            onToggleRemote.Invoke(false);
+    }
+
+    void EnablePlayer()
+    {
+        onToggleShared.Invoke(true);
+
+        if (isLocalPlayer)
+            onToggleLocal.Invoke(true);
+        else
+            onToggleRemote.Invoke(true);
+    }
+
+    public void SetAlive(bool alive)
+    {
+        this.alive = alive;
+    }
+
+    [ClientRpc]
+    private void RpcProcessPlayerElimination()
+    {
+        Debug.Log("ProcessPlayerElimination");
+    }
+
+    void OnNameChanged(string value)
+    {
+        playerName = value;
+        textMeshPro = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        textMeshPro.text = value;
+        CmdAddToPlayerManager();
+        //gameObject.name = playerName;
+        //GetComponentInChildren<Text>(true).text = playerName;
+    }
+
+    void OnColorChanged(Color value)
+    {
+        playerColor = value;
+
+        Material newMaterial = new Material(Shader.Find("PlayerMaterial"));
+        newMaterial.color = value;
+        headRenderer.material = newMaterial;
+        leftRenderer.material = newMaterial;
+        rightRenderer.material = newMaterial;
+        //GetComponentInChildren<RendererToggler>().ChangeColor(playerColor);
+    }
+
+    void OnRoleChanged(PlayerManager.RoleEnum value)
+    {
+        if (isLocalPlayer)
+        {
+            //for each other player in list
+            //change color how it should be
+        } else
+        {
+            //change color based on localRole
+        }
+    }
+
+    [ClientRpc]
+    void RpcSetLocalRole(PlayerManager.RoleEnum value)
+    {
+        playerManager.localRole = value;
+    }
+
+    [Command]
+    private void CmdAddToPlayerManager()
+    {
+        PlayerManager playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
+        playerManager.AddPlayer(this);
     }
 }

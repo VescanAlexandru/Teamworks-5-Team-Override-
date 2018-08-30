@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RightController : MonoBehaviour {
    
     public MyInputManager inputManager;
+    public bool menuScene;
+    public LineRenderer menuLineRenderer;
 
     private SteamVR_TrackedObject trackedObj;
     private SteamVR_Controller.Device Controller
@@ -37,6 +40,29 @@ public class RightController : MonoBehaviour {
         } else
         {
             inputManager.ResetRightAxis();
+        }
+
+        if (menuScene)
+        {
+            menuLineRenderer.gameObject.SetActive(true);
+            menuLineRenderer.SetPosition(0, transform.position);
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
+            {
+                menuLineRenderer.SetPosition(1, new Vector3(hit.point.x, hit.point.y, hit.point.z));
+                Button button = hit.collider.gameObject.GetComponent<Button>();
+                if (button != null)
+                {
+                    Debug.Log("Button");
+                    if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
+                    {
+                        button.onClick.Invoke();
+                    }
+                }
+            }
+        } else
+        {
+            menuLineRenderer.gameObject.SetActive(true);
         }
     }
 }
