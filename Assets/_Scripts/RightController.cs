@@ -62,7 +62,10 @@ public class RightController : MonoBehaviour {
             }
         } else
         {
-            menuLineRenderer.gameObject.SetActive(true);
+            if (menuLineRenderer != null)
+            {
+                menuLineRenderer.gameObject.SetActive(true);
+            }
         }
     }
 }
