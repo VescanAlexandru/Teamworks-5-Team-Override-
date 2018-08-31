@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.Events;
 
-[System.Serializable]
-public class ToggleEvent : UnityEvent<bool> { }
+/*[System.Serializable]
+public class ToggleEvent : UnityEvent<bool> { }*/
 
 public class Player : NetworkBehaviour {
 
@@ -31,15 +31,15 @@ public class Player : NetworkBehaviour {
 
     public TextMeshProUGUI playerNameText;
 
-
+/*
     [SerializeField] ToggleEvent onToggleShared;
     [SerializeField] ToggleEvent onToggleLocal;
-    [SerializeField] ToggleEvent onToggleRemote;
+    [SerializeField] ToggleEvent onToggleRemote;*/
 
 
     // Use this for initialization
     void Start () {
-        EnablePlayer();
+        //EnablePlayer();
 
         if (isLocalPlayer)
         {
@@ -66,12 +66,12 @@ public class Player : NetworkBehaviour {
                 Debug.Log("PlayerContainer is null");
             }
         }
-        playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
+       // playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
         //alive = true;
-        if (isServer)
+        /*if (isServer)
         {
             playerManager = GameObject.FindObjectOfType<PlayerManager>();
-        }
+        }*/
     }
         
 
@@ -92,7 +92,7 @@ public class Player : NetworkBehaviour {
     //[Server]
     public void Eliminate()
     {
-        DisablePlayer();
+        //DisablePlayer();
         Debug.Log("Player has been eliminated");
        // playerManager.RemovePlayer(this);
         //RpcProcessPlayerElimination();
@@ -101,7 +101,7 @@ public class Player : NetworkBehaviour {
         //this.GetComponent<Transform>().rotation.y ==
     }
 
-    void DisablePlayer()
+    /*void DisablePlayer()
     {
         onToggleShared.Invoke(false);
 
@@ -119,7 +119,7 @@ public class Player : NetworkBehaviour {
             onToggleLocal.Invoke(true);
         else
             onToggleRemote.Invoke(true);
-    }
+    }*/
 
     /*public void SetAlive(bool alive)
     {
