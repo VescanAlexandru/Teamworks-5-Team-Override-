@@ -10,10 +10,10 @@ public class ToggleEvent : UnityEvent<bool> { }
 
 public class Player : NetworkBehaviour {
 
-    [SyncVar(hook = "OnNameChanged")] public string playerName;
+    /*[SyncVar(hook = "OnNameChanged")] public string playerName;
     [SyncVar(hook = "OnColorChanged")] public Color playerColor;
     [SyncVar (hook = "OnRoleChanged")] public PlayerManager.RoleEnum role;
-    [SyncVar] public bool alive;
+    [SyncVar] public bool alive;*/
 
     public GameObject head;
     public GameObject leftHand;
@@ -65,34 +65,37 @@ public class Player : NetworkBehaviour {
             {
                 Debug.Log("PlayerContainer is null");
             }
-            playerManager = GameObject.FindObjectOfType<PlayerManager>();
         }
         playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
-        alive = true;
+        //alive = true;
+        if (isServer)
+        {
+            playerManager = GameObject.FindObjectOfType<PlayerManager>();
+        }
     }
         
 
-    [ServerCallback]
+    /*[ServerCallback]
     void OnEnable()
     {
         if (!players.Contains(this))
             players.Add(this);
-    }
+    }*/
 
-    [ServerCallback]
+    /*[ServerCallback]
     void OnDisable()
     {
         if (players.Contains(this))
             players.Remove(this);
-    }
+    }*/
     
     //[Server]
     public void Eliminate()
     {
         DisablePlayer();
         Debug.Log("Player has been eliminated");
-        playerManager.RemovePlayer(this);
-        RpcProcessPlayerElimination();
+       // playerManager.RemovePlayer(this);
+        //RpcProcessPlayerElimination();
         //show that this player is dead by placing player sideways on ground
 
         //this.GetComponent<Transform>().rotation.y ==
@@ -118,28 +121,31 @@ public class Player : NetworkBehaviour {
             onToggleRemote.Invoke(true);
     }
 
-    public void SetAlive(bool alive)
+    /*public void SetAlive(bool alive)
     {
         this.alive = alive;
-    }
+    }*/
 
-    [ClientRpc]
+    /*[ClientRpc]
     private void RpcProcessPlayerElimination()
     {
         Debug.Log("ProcessPlayerElimination");
-    }
+    }*/
 
-    void OnNameChanged(string value)
+    /*void OnNameChanged(string value)
     {
         playerName = value;
         textMeshPro = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         textMeshPro.text = value;
-        CmdAddToPlayerManager();
+        if (isServer)
+        {
+            CmdAddToPlayerManager();
+        }
         //gameObject.name = playerName;
         //GetComponentInChildren<Text>(true).text = playerName;
-    }
+    }*/
 
-    void OnColorChanged(Color value)
+    /*void OnColorChanged(Color value)
     {
         playerColor = value;
 
@@ -149,9 +155,9 @@ public class Player : NetworkBehaviour {
         leftRenderer.material = newMaterial;
         rightRenderer.material = newMaterial;
         //GetComponentInChildren<RendererToggler>().ChangeColor(playerColor);
-    }
+    }*/
 
-    void OnRoleChanged(PlayerManager.RoleEnum value)
+    /*void OnRoleChanged(PlayerManager.RoleEnum value)
     {
         if (isLocalPlayer)
         {
@@ -161,9 +167,9 @@ public class Player : NetworkBehaviour {
         {
             //change color based on localRole
         }
-    }
+    }*/
 
-    [ClientRpc]
+    /*[ClientRpc]
     void RpcSetLocalRole(PlayerManager.RoleEnum value)
     {
         playerManager.localRole = value;
@@ -172,7 +178,9 @@ public class Player : NetworkBehaviour {
     [Command]
     private void CmdAddToPlayerManager()
     {
-        PlayerManager playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
-        playerManager.AddPlayer(this);
-    }
+        if (playerManager != null)
+        {
+            playerManager.AddPlayer(this);
+        }
+    }*/
 }
