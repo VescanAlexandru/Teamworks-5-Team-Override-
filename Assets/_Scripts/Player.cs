@@ -23,10 +23,11 @@ public class Player : NetworkBehaviour {
     public MeshRenderer rightRenderer;
     private TextMeshProUGUI textMeshPro;
 
+    public Material playerMaterial;
+
     static List<Player> players = new List<Player>();
 
     private PlayerManager playerManager;
-    private Material playerMaterial;
 
     public TextMeshProUGUI playerNameText;
 
@@ -64,11 +65,12 @@ public class Player : NetworkBehaviour {
             {
                 Debug.Log("PlayerContainer is null");
             }
+            playerManager = GameObject.FindObjectOfType<PlayerManager>();
         }
-        alive = true;
-        playerManager = GameObject.Find("PlayerManager").GetComponent<PlayerManager>();
         playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
+        alive = true;
     }
+        
 
     [ServerCallback]
     void OnEnable()
@@ -84,7 +86,7 @@ public class Player : NetworkBehaviour {
             players.Remove(this);
     }
     
-    [Server]
+    //[Server]
     public void Eliminate()
     {
         DisablePlayer();
@@ -141,7 +143,7 @@ public class Player : NetworkBehaviour {
     {
         playerColor = value;
 
-        Material newMaterial = new Material(Shader.Find("PlayerMaterial"));
+        Material newMaterial = new Material(playerMaterial);
         newMaterial.color = value;
         headRenderer.material = newMaterial;
         leftRenderer.material = newMaterial;

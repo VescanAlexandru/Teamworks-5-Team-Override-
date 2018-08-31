@@ -99,6 +99,9 @@ public class MyInputManager : MonoBehaviour {
         player.leftHand.transform.rotation = leftControllerTransform.rotation;
         player.rightHand.transform.position = rightControllerTransform.position;
         player.rightHand.transform.rotation = rightControllerTransform.rotation;
+        Debug.Log("Head " + player.head.transform.position + "||||||" + head.transform.position);
+        Debug.Log("Left " + player.leftHand.transform.position + "||||||" + leftControllerTransform.position);
+        Debug.Log("Right " + player.rightHand.transform.position + "||||||" + rightControllerTransform.position);
         /* Debug.Log(head.transform.rotation.eulerAngles.x);
         float lookFactor;
         if (head.transform.rotation.eulerAngles.x < 60.0f)
