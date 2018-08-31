@@ -5,15 +5,15 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.Events;
 
-/*[System.Serializable]
-public class ToggleEvent : UnityEvent<bool> { }*/
+[System.Serializable]
+public class ToggleEvent : UnityEvent<bool> { }
 
 public class Player : NetworkBehaviour {
 
-    /*[SyncVar(hook = "OnNameChanged")] public string playerName;
+    [SyncVar(hook = "OnNameChanged")] public string playerName;
     [SyncVar(hook = "OnColorChanged")] public Color playerColor;
     [SyncVar (hook = "OnRoleChanged")] public PlayerManager.RoleEnum role;
-    [SyncVar] public bool alive;*/
+    [SyncVar] public bool alive;
 
     public GameObject head;
     public GameObject leftHand;
@@ -31,10 +31,10 @@ public class Player : NetworkBehaviour {
 
     public TextMeshProUGUI playerNameText;
 
-/*
+
     [SerializeField] ToggleEvent onToggleShared;
     [SerializeField] ToggleEvent onToggleLocal;
-    [SerializeField] ToggleEvent onToggleRemote;*/
+    [SerializeField] ToggleEvent onToggleRemote;
 
 
     // Use this for initialization
@@ -132,20 +132,20 @@ public class Player : NetworkBehaviour {
         Debug.Log("ProcessPlayerElimination");
     }*/
 
-    /*void OnNameChanged(string value)
+    void OnNameChanged(string value)
     {
         playerName = value;
         textMeshPro = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         textMeshPro.text = value;
         if (isServer)
         {
-            CmdAddToPlayerManager();
+            AddToPlayerManager();
         }
         //gameObject.name = playerName;
         //GetComponentInChildren<Text>(true).text = playerName;
-    }*/
+    }
 
-    /*void OnColorChanged(Color value)
+    void OnColorChanged(Color value)
     {
         playerColor = value;
 
@@ -155,9 +155,9 @@ public class Player : NetworkBehaviour {
         leftRenderer.material = newMaterial;
         rightRenderer.material = newMaterial;
         //GetComponentInChildren<RendererToggler>().ChangeColor(playerColor);
-    }*/
+    }
 
-    /*void OnRoleChanged(PlayerManager.RoleEnum value)
+    void OnRoleChanged(PlayerManager.RoleEnum value)
     {
         if (isLocalPlayer)
         {
@@ -167,20 +167,20 @@ public class Player : NetworkBehaviour {
         {
             //change color based on localRole
         }
-    }*/
+    }
 
     /*[ClientRpc]
     void RpcSetLocalRole(PlayerManager.RoleEnum value)
     {
         playerManager.localRole = value;
-    }
+    }*/
 
-    [Command]
-    private void CmdAddToPlayerManager()
+    [Server]
+    private void AddToPlayerManager()
     {
         if (playerManager != null)
         {
             playerManager.AddPlayer(this);
         }
-    }*/
+    }
 }

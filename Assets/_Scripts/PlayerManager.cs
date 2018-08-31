@@ -21,7 +21,7 @@ public class PlayerManager : NetworkBehaviour
         numInno = 0;
     }
 
-    /*[Server]
+    [Server]
     public void AddPlayer(Player player)
     {
         playerList.Add(player);
@@ -55,5 +55,5 @@ public class PlayerManager : NetworkBehaviour
         }
 
         playerList.Remove(player);
-    }*/
+    }
 }
