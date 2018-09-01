@@ -10,7 +10,7 @@ public class MyLobbyHook : LobbyHook
         LobbyPlayer lPlayer = lobbyPlayer.GetComponent<LobbyPlayer>();
         Player gPlayer = gamePlayer.GetComponent<Player>();
 
-        //gPlayer.playerName = lPlayer.playerName;
-        //gPlayer.playerColor = lPlayer.playerColor;
+        gPlayer.playerName = lPlayer.playerName;
+        gPlayer.playerColor = lPlayer.playerColor;
     }
 }

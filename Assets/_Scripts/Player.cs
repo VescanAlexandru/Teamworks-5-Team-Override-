@@ -10,8 +10,8 @@ public class ToggleEvent : UnityEvent<bool> { }
 
 public class Player : NetworkBehaviour {
 
-    [SyncVar(hook = "OnNameChanged")] public string playerName;
-    [SyncVar(hook = "OnColorChanged")] public Color playerColor;
+    [SyncVar (hook = "OnNameChanged")] public string playerName;
+    [SyncVar (hook = "OnColorChanged")] public Color playerColor;
     [SyncVar (hook = "OnRoleChanged")] public PlayerManager.RoleEnum role;
     [SyncVar] public bool alive;
 
@@ -66,12 +66,12 @@ public class Player : NetworkBehaviour {
                 Debug.Log("PlayerContainer is null");
             }
         }
-       // playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
-        //alive = true;
-        /*if (isServer)
+        playerNameText = GameObject.Find("PlayerTag").GetComponent<TextMeshProUGUI>();
+        alive = true;
+        if (isServer)
         {
             playerManager = GameObject.FindObjectOfType<PlayerManager>();
-        }*/
+        }
     }
         
 
