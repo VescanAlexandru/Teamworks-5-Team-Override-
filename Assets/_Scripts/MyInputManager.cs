@@ -90,7 +90,7 @@ public class MyInputManager : MonoBehaviour {
             player.rightHand.transform.rotation = rightControllerTransform.rotation;
         } else
         {
-            transform.parent.position = player.head.transform.position;
+            transform.parent.position = player.transform.position;
             setInSpawn = true;
         }
     }
