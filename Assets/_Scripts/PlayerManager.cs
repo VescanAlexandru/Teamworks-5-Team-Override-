@@ -5,121 +5,55 @@ using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
 {
-    public int numPlayers;
-    public int ratioPlayersToSab = 4; //1 sab for every 4 players
+    [SyncVar] public int ratioPlayersToSab = 3;
+    [SyncVar] public int numSab;
+    [SyncVar] public int numInno;
 
-    private int numSab; //saboteur
-    public int NumSab
-    {
-        get { return numSab; }
-        set { numSab = value; }
-    }
-    private int numInno; //innocent
-    public int NumInno
-    {
-        get { return numInno; }
-        set { numInno = value; }
-    }
-    //private int numDet; //detective
+    public static List<Player> playerList;
 
-    public List<Player> playerList;
-    public List<Material> colorList;
-    public bool playersGenerated;
     public enum RoleEnum { Innocent, Saboteur };
+    public RoleEnum localRole;
 
-    private List<string> randomNameList = new List<string>
+    [ServerCallback]
+    private void Start()
     {
-        //25 girl names
-        "Emma", "Olivia", "Ava", "Sophia", "Isabella", "Mia", "Charlotte", "Abigail", "Emily", "Harper",
-        "Harper", "Amelia", "Evelyn", "Elizabeth", "Sofia", "Madison", "Avery", "Ella", "Scarlett", "Grace",
-        "Chloe", "Victoria", "Riley", "Aria", "Lily",
-
-        //25 boy names
-        "Noah", "Liam", "William", "Mason", "James", "Benjamin", "Jacob", "Michael", "Elijah", "Ethan",
-        "Alexander", "Oliver", "Daniel", "Lucas", "Matthew", "Aiden", "Jackson", "Logan", "David", "Joseph",
-        "David", "Joseph", "Samuel", "Henry", "Owen"
-    };
-
-
-    // Use this for initialization
-    void Start()
-    {
-        //numDet = 1;
-        numSab = numPlayers / ratioPlayersToSab;
-        numInno = numPlayers - /*numDet*/ - numSab;
-        playersGenerated = false;
+        numSab = 0;
+        numInno = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    [Server]
+    public void AddPlayer(Player player)
     {
-
-    }
-
-    public void GeneratePlayers()
-    {
-        playerList = new List<Player>(numPlayers);
-
-        //assigning one detective role
-        //playerList[Random.Range(0, numPlayers)].AssignRole("Detective");
-
-        int randNum;
-        //assigning random saboteur roles
-        for (int i = 0; i < numSab; i++)
+        playerList.Add(player);
+        if (numInno / numSab > ratioPlayersToSab && numInno % numSab == ratioPlayersToSab - 1)
         {
-
-            //keep searching for a random spot that doesn't already have a role
-            do
-            {
-                randNum = Random.Range(0, numPlayers);
-            }
-            while (playerList[randNum].HasRole());
-
-            playerList[randNum].AssignRole(RoleEnum.Saboteur);
-
-        }
-
-        //assigning innocent roles for the rest of the players
-        for (int i = 0; i < playerList.Count; i++)
+            player.role = RoleEnum.Saboteur;
+        } else if (numSab * ratioPlayersToSab > numInno)
         {
-            if (!playerList[i].HasRole())
+            player.role = RoleEnum.Innocent;
+        } else
+        {
+            if (Random.Range(0, 1) > 1.0f / ratioPlayersToSab)
             {
-                playerList[i].AssignRole(RoleEnum.Innocent);
+                player.role = RoleEnum.Innocent;
+            } else
+            {
+                player.role = RoleEnum.Saboteur;
             }
         }
-
-        GeneratePlayerNames();
-        AssignPlayerColors();
-
-        playersGenerated = true;
     }
 
-    public void GeneratePlayerNames()
+    [Server]
+    public void RemovePlayer(Player player)
     {
-        int randNum;
-        for (int i = 0; i < playerList.Count; i++)
+        if (player.role == RoleEnum.Innocent)
         {
-            randNum = Random.Range(0, randomNameList.Count);
-            playerList[i].AssignName(randomNameList[randNum]);
-            randomNameList.RemoveAt(randNum);
-
-        }
-    }
-
-    public void AssignPlayerColors()
-    {
-        int randNum;
-        for (int i = 0; i < playerList.Count; i++)
+            numInno--;
+        } else
         {
-            randNum = Random.Range(0, colorList.Count);
-            playerList[i].SetColor(colorList[randNum]);
-            colorList.RemoveAt(randNum);
+            numSab--;
         }
-    }
 
-    public bool HasAllPlayers()
-    {
-        //TODO
-        return true;
+        playerList.Remove(player);
     }
 }

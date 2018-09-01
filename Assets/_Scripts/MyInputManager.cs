@@ -1,10 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class MyInputManager : NetworkBehaviour {
-
+public class MyInputManager : MonoBehaviour {
+    public bool isLobby;
     public SphereCollider containerCollider;
     public SphereCollider groundCollider;
     public GameObject head;
@@ -55,6 +54,10 @@ public class MyInputManager : NetworkBehaviour {
 
     void Update()
     {
+        if (isLobby)
+        {
+
+        }
        /* if (isServer)
         {
             if (player != null)
@@ -83,12 +86,10 @@ public class MyInputManager : NetworkBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
-
-        Debug.Log(new Vector3(head.transform.position.x - transform.position.x, 0, head.transform.position.z - leftControllerTransform.position.z));
         containerCollider.center = new Vector3(head.transform.position.x - transform.position.x, containerCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
         groundCollider.center = new Vector3(head.transform.position.x - transform.position.x, groundCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
 
-        if (player == null)
+        if (player == null || !player.alive)
         {
             return;
         }
@@ -98,6 +99,9 @@ public class MyInputManager : NetworkBehaviour {
         player.leftHand.transform.rotation = leftControllerTransform.rotation;
         player.rightHand.transform.position = rightControllerTransform.position;
         player.rightHand.transform.rotation = rightControllerTransform.rotation;
+        Debug.Log("Head " + player.head.transform.position + "||||||" + head.transform.position);
+        Debug.Log("Left " + player.leftHand.transform.position + "||||||" + leftControllerTransform.position);
+        Debug.Log("Right " + player.rightHand.transform.position + "||||||" + rightControllerTransform.position);
         /* Debug.Log(head.transform.rotation.eulerAngles.x);
         float lookFactor;
         if (head.transform.rotation.eulerAngles.x < 60.0f)
@@ -209,6 +213,10 @@ public class MyInputManager : NetworkBehaviour {
 
     public void SetPlayer(Player player)
     {
+        //fade out
+        transform.position = player.transform.position;
+        transform.rotation = player.transform.rotation;
+        //fade in
         Debug.Log("player set");
         this.player = player;
     }
