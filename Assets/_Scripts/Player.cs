@@ -30,6 +30,7 @@ public class Player : NetworkBehaviour {
     private PlayerManager playerManager;
 
     public TextMeshProUGUI playerNameText;
+    private static PlayerManager.RoleEnum localRole;
 
 
     [SerializeField] ToggleEvent onToggleShared;
@@ -39,7 +40,7 @@ public class Player : NetworkBehaviour {
 
     // Use this for initialization
     void Start () {
-        //EnablePlayer();
+        EnablePlayer();
 
         if (isLocalPlayer)
         {
@@ -75,33 +76,31 @@ public class Player : NetworkBehaviour {
     }
         
 
-    /*[ServerCallback]
+    [ServerCallback]
     void OnEnable()
     {
         if (!players.Contains(this))
             players.Add(this);
-    }*/
+    }
 
-    /*[ServerCallback]
+    [ServerCallback]
     void OnDisable()
     {
         if (players.Contains(this))
             players.Remove(this);
-    }*/
+    }
     
-    //[Server]
+    [Server]
     public void Eliminate()
     {
-        //DisablePlayer();
+        DisablePlayer();
         Debug.Log("Player has been eliminated");
-       // playerManager.RemovePlayer(this);
-        //RpcProcessPlayerElimination();
+        playerManager.RemovePlayer(this);
+        RpcProcessPlayerElimination();
         //show that this player is dead by placing player sideways on ground
-
-        //this.GetComponent<Transform>().rotation.y ==
     }
 
-    /*void DisablePlayer()
+    void DisablePlayer()
     {
         onToggleShared.Invoke(false);
 
@@ -119,18 +118,13 @@ public class Player : NetworkBehaviour {
             onToggleLocal.Invoke(true);
         else
             onToggleRemote.Invoke(true);
-    }*/
+    }
 
-    /*public void SetAlive(bool alive)
-    {
-        this.alive = alive;
-    }*/
-
-    /*[ClientRpc]
+    [ClientRpc]
     private void RpcProcessPlayerElimination()
     {
         Debug.Log("ProcessPlayerElimination");
-    }*/
+    }
 
     void OnNameChanged(string value)
     {
@@ -159,21 +153,27 @@ public class Player : NetworkBehaviour {
 
     void OnRoleChanged(PlayerManager.RoleEnum value)
     {
-        if (isLocalPlayer)
-        {
-            //for each other player in list
-            //change color how it should be
-        } else
-        {
-            //change color based on localRole
-        }
+        RpcSetLocalRole(value);
     }
 
-    /*[ClientRpc]
+    [ClientRpc]
     void RpcSetLocalRole(PlayerManager.RoleEnum value)
     {
-        playerManager.localRole = value;
-    }*/
+        Debug.Log(value);
+        if (isLocalPlayer)
+        {
+            localRole = value;
+            Debug.Log("Local: " + value);
+        }
+        else
+        {
+            if (localRole == PlayerManager.RoleEnum.Saboteur && value == PlayerManager.RoleEnum.Saboteur)
+            {
+                textMeshPro = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+                textMeshPro.color = Color.red;
+            }
+        }
+    }
 
     [Server]
     private void AddToPlayerManager()

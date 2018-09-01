@@ -15,9 +15,6 @@ public class MyInputManager : MonoBehaviour {
     public GameObject cameraRig;
     public Rigidbody cameraRigRigid;
 
-    private SteamVR_Controller.Device rightController;
-    private SteamVR_Controller.Device leftController;
-
     private bool leftTouchPadPress;
     private bool rightTouchPadPress;
 
@@ -37,8 +34,7 @@ public class MyInputManager : MonoBehaviour {
     private Vector3 newDiffPosRight;
     private Vector3 controllerVelocityRight;
 
-    private Vector2 leftAxis;
-    private Vector2 rightAxis;
+    private bool setInSpawn;
 
     void Start()
     {
@@ -50,21 +46,11 @@ public class MyInputManager : MonoBehaviour {
         prevPosRight = rightControllerTransform.position;
         prevParentPosRight = cameraRig.transform.position;
         prevDiffPosRight = prevParentPosRight - prevPosRight;
+        setInSpawn = false;
     }
 
     void Update()
     {
-        if (isLobby)
-        {
-
-        }
-       /* if (isServer)
-        {
-            if (player != null)
-            {
-                selectedUnit = GameObject.Find("Unit(Clone)");
-            }
-        }*/
         //left
         newPosLeft = leftControllerTransform.position;
         newParentPosLeft = cameraRig.transform.position;
@@ -93,37 +79,20 @@ public class MyInputManager : MonoBehaviour {
         {
             return;
         }
-        player.head.transform.position = head.transform.position;
-        player.head.transform.rotation = head.transform.rotation;
-        Debug.Log(leftControllerTransform.position);
-        player.leftHand.transform.position = leftControllerTransform.position;
-        player.leftHand.transform.rotation = leftControllerTransform.rotation;
-        player.rightHand.transform.position = rightControllerTransform.position;
-        player.rightHand.transform.rotation = rightControllerTransform.rotation;
-        /* Debug.Log(head.transform.rotation.eulerAngles.x);
-        float lookFactor;
-        if (head.transform.rotation.eulerAngles.x < 60.0f)
+
+        if (setInSpawn)
         {
-            lookFactor = Mathf.Max(0.0f, head.transform.rotation.eulerAngles.x / 300f);
-        } else if (head.transform.rotation.eulerAngles.x < 80.0f)
-        {
-            lookFactor = 0.2f;
+            player.head.transform.position = head.transform.position;
+            player.head.transform.rotation = head.transform.rotation;
+            player.leftHand.transform.position = leftControllerTransform.position;
+            player.leftHand.transform.rotation = leftControllerTransform.rotation;
+            player.rightHand.transform.position = rightControllerTransform.position;
+            player.rightHand.transform.rotation = rightControllerTransform.rotation;
         } else
         {
-            lookFactor = 0.0f;
-        }*/
-        //player.body.transform.position = head.transform.position - new Vector3(Mathf.Sin(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor, 0.7f, Mathf.Cos(head.transform.rotation.eulerAngles.y * Mathf.Deg2Rad) * lookFactor);
-        //Debug.Log(player);
-    }
-
-    public void SetRightController(SteamVR_Controller.Device controller)
-    {
-        rightController = controller;
-    }
-
-    public void SetLeftController(SteamVR_Controller.Device controller)
-    {
-        leftController = controller;
+            transform.parent.position = player.head.transform.position;
+            setInSpawn = true;
+        }
     }
 
     public void LeftTouchPadPress()
@@ -141,33 +110,11 @@ public class MyInputManager : MonoBehaviour {
     public void LeftTouchPadPressUp(Vector2 pos)
     {
         leftTouchPadPress = false;
-        leftAxis = pos;
     }
 
     public void RightTouchPadPressUp(Vector2 pos)
     {
         rightTouchPadPress = false;
-        rightAxis = pos;
-    }
-
-    public void SetLeftAxis(Vector2 axis)
-    {
-        leftAxis = axis;
-    }
-
-    public void SetRightAxis(Vector2 axis)
-    {
-        rightAxis = axis;
-    }
-
-    public void ResetLeftAxis()
-    {
-        leftAxis = new Vector2(0, 0);
-    }
-
-    public void ResetRightAxis()
-    {
-        rightAxis = new Vector2(0, 0);
     }
 
     private void UpdateRunning()

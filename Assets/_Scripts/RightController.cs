@@ -20,11 +20,6 @@ public class RightController : MonoBehaviour {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    private void Start()
-    {
-        inputManager.SetRightController(Controller);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -36,14 +31,6 @@ public class RightController : MonoBehaviour {
         if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
             inputManager.RightTouchPadPress();
-        }
-
-        if (Controller.GetAxis().x != 0 || Controller.GetAxis().y != 0)
-        {
-            inputManager.SetRightAxis(Controller.GetAxis());
-        } else
-        {
-            inputManager.ResetRightAxis();
         }
 
         if (menuScene)

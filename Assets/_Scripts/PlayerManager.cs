@@ -12,7 +12,6 @@ public class PlayerManager : NetworkBehaviour
     public static List<Player> playerList;
 
     public enum RoleEnum { Innocent, Saboteur };
-    public RoleEnum localRole;
 
     [ServerCallback]
     private void Start()

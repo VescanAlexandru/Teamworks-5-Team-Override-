@@ -14,7 +14,8 @@ public class AttackHandler : MonoBehaviour {
             if (other.CompareTag("PlayerHead") && other.transform.parent != transform.parent) //Don't eliminate self
             {
                 Debug.Log("Hit");
-                other.GetComponent<Player>().Eliminate();
+            Player otherPlayer = other.gameObject.GetComponent<Player>();
+            otherPlayer.Eliminate();//null here
             }
             //}
     }

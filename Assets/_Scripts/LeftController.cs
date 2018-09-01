@@ -18,11 +18,6 @@ public class LeftController : MonoBehaviour
         trackedObj = GetComponent<SteamVR_TrackedObject>();
     }
 
-    private void Start()
-    {
-        inputManager.SetLeftController(Controller);
-    }
-
     void Update()
     {
         if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
@@ -33,14 +28,6 @@ public class LeftController : MonoBehaviour
         if (Controller.GetPress(SteamVR_Controller.ButtonMask.Touchpad))
         {
             inputManager.LeftTouchPadPress();
-        }
-
-        if (Controller.GetAxis().x != 0 || Controller.GetAxis().y != 0)
-        {
-            inputManager.SetLeftAxis(Controller.GetAxis());
-        } else
-        {
-            inputManager.ResetLeftAxis();
         }
     }
 }
