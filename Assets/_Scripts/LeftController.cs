@@ -16,10 +16,14 @@ public class LeftController : MonoBehaviour
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+    }
+
+    private void Start()
+    {
         inputManager.SetLeftController(Controller);
     }
 
-   void Update()
+    void Update()
     {
         if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
         {

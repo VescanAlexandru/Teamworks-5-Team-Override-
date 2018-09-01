@@ -95,6 +95,7 @@ public class MyInputManager : MonoBehaviour {
         }
         player.head.transform.position = head.transform.position;
         player.head.transform.rotation = head.transform.rotation;
+        Debug.Log(leftControllerTransform.position);
         player.leftHand.transform.position = leftControllerTransform.position;
         player.leftHand.transform.rotation = leftControllerTransform.rotation;
         player.rightHand.transform.position = rightControllerTransform.position;

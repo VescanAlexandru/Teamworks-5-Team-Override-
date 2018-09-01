@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 9
+  controlID: 122
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -90,8 +90,8 @@ MonoBehaviour:
     y: 0
     width: 202
     height: 615
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 79
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -234,7 +234,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 11
+  controlID: 80
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -330,19 +330,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_Scripts
+    - Assets/_Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/_Scripts
+  - Assets/_Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Tyler\Documents\TeamworksOverride
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 223}
-    m_SelectedIDs: 0c120000
-    m_LastClickedID: 4620
+    scrollPos: {x: 0, y: 120}
+    m_SelectedIDs: f41b0000
+    m_LastClickedID: 7156
     m_ExpandedIDs: 00000000520c00002c140000bc140000d4140000e21500003e2100008a2100007c4e00007e4e0000804e0000824e0000844e0000864e0000884e00008a4e00008c4e00008e4e0000904e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -423,7 +423,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 35}
+    m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 64
   m_DirectoriesAreaWidth: 287
 --- !u!114 &14
@@ -487,9 +487,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b80a0000
+    m_SelectedIDs: 101f0000
     m_LastClickedID: 0
-    m_ExpandedIDs: d46bffff287affffe07effffa67fffff3c8bffff408bffff06adffffacbcffff1ad6ffffe6fbffff00000000
+    m_ExpandedIDs: a2b4fbff66cffbff68cffbff72cffbff4271fcff4471fcff4e71fcffe087fcfffec5fcfff64cfdff2255fdff2455fdff2e55fdff1ad4fdffce50fefff458fefff658fefffa58fefffc58feff0659feff047dfeff3c85feff34d6feff36d6feffd8dafeff94e9feff66f1feff2cf2feffc2fdfeffc6fdfeff9c1effff882cffff0663ffff5091ffff9ea0ffff6aa5ffff32a6ffffc8b1ffffccb1ffff28d6ffff4ce5ffffe6fbfffff4ffffff00000000a2c30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -539,14 +539,14 @@ MonoBehaviour:
     height: 594
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 2260.2464024212522
+  lastFramingTime: 1577.5299894275238
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -56.41506, y: 0.94429815, z: 87.814705}
+    m_Target: {x: -61.33011, y: 1.2139238, z: 86.8005}
     speed: 2
-    m_Value: {x: -56.41506, y: 0.94429815, z: 87.814705}
+    m_Value: {x: -61.33011, y: 1.2139238, z: 86.8005}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -574,13 +574,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.093753666, y: -0.27867734, z: 0.02734593, w: -0.95540637}
+    m_Target: {x: -0.13517618, y: 0.2408527, z: -0.033896822, w: -0.96050423}
     speed: 2
-    m_Value: {x: -0.09375367, y: -0.27867737, z: 0.027345931, w: -0.9554064}
+    m_Value: {x: -0.13517618, y: 0.2408527, z: -0.033896822, w: -0.96050423}
   m_Size:
-    m_Target: 7.3104615
+    m_Target: 7.122662
     speed: 2
-    m_Value: 7.3104615
+    m_Value: 7.122662
   m_Ortho:
     m_Target: 0
     speed: 2

@@ -18,6 +18,10 @@ public class RightController : MonoBehaviour {
     void Awake()
     {
         trackedObj = GetComponent<SteamVR_TrackedObject>();
+    }
+
+    private void Start()
+    {
         inputManager.SetRightController(Controller);
     }
 
