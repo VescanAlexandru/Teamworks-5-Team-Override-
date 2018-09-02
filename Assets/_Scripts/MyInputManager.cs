@@ -104,14 +104,6 @@ public class MyInputManager : MonoBehaviour {
 
         if (!player.alive && !died)
         {
-            player.head.GetComponent<Rigidbody>().isKinematic = false;
-            player.head.GetComponent<Rigidbody>().useGravity = true;
-            player.leftHand.GetComponent<Rigidbody>().isKinematic = false;
-            player.leftHand.GetComponent<Rigidbody>().useGravity = true;
-            player.leftHand.GetComponent<SphereCollider>().isTrigger = false;
-            player.rightHand.GetComponent<Rigidbody>().isKinematic = false;
-            player.rightHand.GetComponent<Rigidbody>().useGravity = true;
-            player.rightHand.GetComponent<SphereCollider>().isTrigger = false;
             died = true;
         }
     }

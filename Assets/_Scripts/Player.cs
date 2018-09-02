@@ -125,6 +125,14 @@ public class Player : NetworkBehaviour {
         alive = false;
         Debug.Log("Player has been eliminated");
         playerManager.RemovePlayer(this);
+        head.GetComponent<Rigidbody>().isKinematic = false;
+        head.GetComponent<Rigidbody>().useGravity = true;
+        leftHand.GetComponent<Rigidbody>().isKinematic = false;
+        leftHand.GetComponent<Rigidbody>().useGravity = true;
+        leftHand.GetComponent<SphereCollider>().isTrigger = false;
+        rightHand.GetComponent<Rigidbody>().isKinematic = false;
+        rightHand.GetComponent<Rigidbody>().useGravity = true;
+        rightHand.GetComponent<SphereCollider>().isTrigger = false;
         RpcProcessPlayerElimination();
         //show that this player is dead by placing player sideways on ground
     }
@@ -153,6 +161,15 @@ public class Player : NetworkBehaviour {
     private void RpcProcessPlayerElimination()
     {
         Debug.Log("ProcessPlayerElimination");
+
+        head.GetComponent<Rigidbody>().isKinematic = false;
+        head.GetComponent<Rigidbody>().useGravity = true;
+        leftHand.GetComponent<Rigidbody>().isKinematic = false;
+        leftHand.GetComponent<Rigidbody>().useGravity = true;
+        leftHand.GetComponent<SphereCollider>().isTrigger = false;
+        rightHand.GetComponent<Rigidbody>().isKinematic = false;
+        rightHand.GetComponent<Rigidbody>().useGravity = true;
+        rightHand.GetComponent<SphereCollider>().isTrigger = false;
     }
 
     void OnNameChanged(string value)
