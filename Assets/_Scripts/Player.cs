@@ -31,6 +31,9 @@ public class Player : NetworkBehaviour {
 
     public TextMeshProUGUI playerNameText;
     private static PlayerManager.RoleEnum localRole;
+    private bool colorChanged;
+    private bool nameChanged;
+    private bool roleChanged;
 
 
     [SerializeField] ToggleEvent onToggleShared;
@@ -73,8 +76,27 @@ public class Player : NetworkBehaviour {
         {
             playerManager = GameObject.FindObjectOfType<PlayerManager>();
         }
+        nameChanged = false;
+        colorChanged = false;
+        roleChanged = false;
     }
-        
+
+    private void Update()
+    {
+        if (!nameChanged && playerName != null)
+        {
+            OnNameChanged(playerName);
+        }
+        if (!colorChanged && playerColor != null)
+        {
+            OnColorChanged(playerColor);
+        }
+        if (!roleChanged && role == PlayerManager.RoleEnum.Saboteur || role == PlayerManager.RoleEnum.Innocent)
+        {
+            OnRoleChanged(role);
+        }
+    }
+
 
     [ServerCallback]
     void OnEnable()
@@ -137,6 +159,7 @@ public class Player : NetworkBehaviour {
         }
         //gameObject.name = playerName;
         //GetComponentInChildren<Text>(true).text = playerName;
+        nameChanged = true;
     }
 
     void OnColorChanged(Color value)
@@ -149,11 +172,13 @@ public class Player : NetworkBehaviour {
         leftRenderer.material = newMaterial;
         rightRenderer.material = newMaterial;
         //GetComponentInChildren<RendererToggler>().ChangeColor(playerColor);
+        colorChanged = true;
     }
 
     void OnRoleChanged(PlayerManager.RoleEnum value)
     {
         RpcSetLocalRole(value);
+        roleChanged = true;
     }
 
     [ClientRpc]
