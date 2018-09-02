@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/_Scenes/GameArena.unity
-  isLoaded: 1
-  isActive: 1

@@ -72,8 +72,8 @@ public class MyInputManager : MonoBehaviour {
         //Movement
         UpdateRunning();
         //Debug.Log(player);
-        containerCollider.center = new Vector3(head.transform.position.x - transform.position.x, containerCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
-        groundCollider.center = new Vector3(head.transform.position.x - transform.position.x, groundCollider.center.y, head.transform.position.z - leftControllerTransform.position.z);
+        containerCollider.center = new Vector3(head.transform.position.x - transform.position.x, containerCollider.center.y, head.transform.position.z - transform.position.z);
+        groundCollider.center = new Vector3(head.transform.position.x - transform.position.x, groundCollider.center.y, head.transform.position.z - transform.position.z);
 
         if (player == null )//|| !player.alive)
         {
