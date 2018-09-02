@@ -177,13 +177,7 @@ public class Player : NetworkBehaviour {
 
     void OnRoleChanged(PlayerManager.RoleEnum value)
     {
-        RpcSetLocalRole(value);
         roleChanged = true;
-    }
-
-    [ClientRpc]
-    void RpcSetLocalRole(PlayerManager.RoleEnum value)
-    {
         Debug.Log(value);
         if (isLocalPlayer)
         {
