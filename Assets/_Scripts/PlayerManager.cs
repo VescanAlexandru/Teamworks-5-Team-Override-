@@ -24,7 +24,21 @@ public class PlayerManager : NetworkBehaviour
     public void AddPlayer(Player player)
     {
         playerList.Add(player);
-        if (numInno / numSab > ratioPlayersToSab && numInno % numSab == ratioPlayersToSab - 1)
+        if (numSab == 0 && numInno != 0)
+        {
+            player.role = RoleEnum.Saboteur;
+        } else if (numSab == 0)
+        {
+            if (Random.Range(0, 1) > 1.0f / ratioPlayersToSab)
+            {
+                player.role = RoleEnum.Innocent;
+            }
+            else
+            {
+                player.role = RoleEnum.Saboteur;
+            }
+        }
+        else if (numInno / numSab > ratioPlayersToSab && numInno % numSab == ratioPlayersToSab - 1)
         {
             player.role = RoleEnum.Saboteur;
         } else if (numSab * ratioPlayersToSab > numInno)
