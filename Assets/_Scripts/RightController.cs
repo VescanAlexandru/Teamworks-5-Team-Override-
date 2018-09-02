@@ -44,7 +44,6 @@ public class RightController : MonoBehaviour {
                 Button button = hit.collider.gameObject.GetComponent<Button>();
                 if (button != null)
                 {
-                    Debug.Log("Button");
                     if (Controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
                     {
                         button.onClick.Invoke();
