@@ -14,6 +14,7 @@ public class MyInputManager : MonoBehaviour {
     public Transform leftControllerTransform;
     public GameObject cameraRig;
     public Rigidbody cameraRigRigid;
+    public Transform playerContainer;
 
     private bool leftTouchPadPress;
     private bool rightTouchPadPress;
@@ -90,11 +91,13 @@ public class MyInputManager : MonoBehaviour {
             player.rightHand.transform.rotation = rightControllerTransform.rotation;
         } else
         {
-            Debug.Log("Parent: " + transform.parent.position);
+            Debug.Log("Parent: " + playerContainer.position);
             Debug.Log("Parent: " + player.transform.position);
-            transform.parent.position = player.transform.position;
+            playerContainer.position = player.transform.position;
             setInSpawn = true;
-            Debug.Log("Parent: " + transform.parent.position);
+            cameraRigRigid.useGravity = true;
+            Debug.Log("Parent: " + playerContainer.position);
+            transform.localPosition = new Vector3(0, 0, 0);
         }
     }
 

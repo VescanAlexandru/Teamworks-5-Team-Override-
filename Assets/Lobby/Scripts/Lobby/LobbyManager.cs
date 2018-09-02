@@ -55,6 +55,7 @@ namespace Prototype.NetworkLobby
 
         void Start()
         {
+            this.SetMatchHost("us1-mm.unet.unity3d.com", this.matchPort, true);
             s_Singleton = this;
             _lobbyHooks = GetComponent<Prototype.NetworkLobby.LobbyHook>();
             currentPanel = mainMenuPanel;

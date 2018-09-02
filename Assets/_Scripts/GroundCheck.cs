@@ -7,12 +7,14 @@ public class GroundCheck : MonoBehaviour {
     public Rigidbody playerContainer;
 
     private GameObject ground;
-    
-    private void OnTriggerEnter(Collider col)
+
+    private void OnTriggerStay(Collider other)
     {
-        ground = col.gameObject;
+        ground = other.gameObject;
         playerContainer.useGravity = false;
     }
+
+
 
     private void OnTriggerExit(Collider col)
     {
