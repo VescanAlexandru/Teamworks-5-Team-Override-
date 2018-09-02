@@ -9,7 +9,7 @@ public class PlayerManager : NetworkBehaviour
     [SyncVar] public int numSab;
     [SyncVar] public int numInno;
 
-    public static List<Player> playerList;
+    public List<Player> playerList;
 
     public enum RoleEnum { Innocent, Saboteur };
 
@@ -23,7 +23,7 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void AddPlayer(Player player)
     {
-        PlayerManager.playerList.Add(player);
+        playerList.Add(player);
         if (numInno / numSab > ratioPlayersToSab && numInno % numSab == ratioPlayersToSab - 1)
         {
             player.role = RoleEnum.Saboteur;
