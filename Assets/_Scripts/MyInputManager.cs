@@ -90,8 +90,11 @@ public class MyInputManager : MonoBehaviour {
             player.rightHand.transform.rotation = rightControllerTransform.rotation;
         } else
         {
+            Debug.Log("Parent: " + transform.parent.position);
+            Debug.Log("Parent: " + player.transform.position);
             transform.parent.position = player.transform.position;
             setInSpawn = true;
+            Debug.Log("Parent: " + transform.parent.position);
         }
     }
 
