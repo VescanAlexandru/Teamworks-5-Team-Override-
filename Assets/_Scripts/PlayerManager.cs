@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class PlayerManager : NetworkBehaviour
 {
-    [SyncVar] public int ratioPlayersToSab = 3;
+    [SyncVar] public float ratioPlayersToSab = 3;
     [SyncVar] public int numSab;
     [SyncVar] public int numInno;
 
