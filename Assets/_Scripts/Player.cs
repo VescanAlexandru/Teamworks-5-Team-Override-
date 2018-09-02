@@ -97,6 +97,12 @@ public class Player : NetworkBehaviour {
         }
     }
 
+    [Server]
+    public void SetPlayerManager(PlayerManager manager)
+    {
+        playerManager = manager;
+    }
+
 
     [ServerCallback]
     void OnEnable()
@@ -116,6 +122,7 @@ public class Player : NetworkBehaviour {
     public void Eliminate()
     {
         DisablePlayer();
+        alive = false;
         Debug.Log("Player has been eliminated");
         playerManager.RemovePlayer(this);
         RpcProcessPlayerElimination();

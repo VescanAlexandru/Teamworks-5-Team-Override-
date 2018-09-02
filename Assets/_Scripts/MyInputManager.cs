@@ -36,6 +36,7 @@ public class MyInputManager : MonoBehaviour {
     private Vector3 controllerVelocityRight;
 
     private bool setInSpawn;
+    private bool died;
 
     void Start()
     {
@@ -48,6 +49,7 @@ public class MyInputManager : MonoBehaviour {
         prevParentPosRight = cameraRig.transform.position;
         prevDiffPosRight = prevParentPosRight - prevPosRight;
         setInSpawn = false;
+        died = false;
     }
 
     void Update()
@@ -81,7 +83,7 @@ public class MyInputManager : MonoBehaviour {
             return;
         }
 
-        if (setInSpawn)
+        if (setInSpawn && player.alive)
         {
             player.head.transform.position = head.transform.position;
             player.head.transform.rotation = head.transform.rotation;
@@ -98,6 +100,19 @@ public class MyInputManager : MonoBehaviour {
             cameraRigRigid.useGravity = true;
             Debug.Log("Parent: " + playerContainer.position);
             transform.localPosition = new Vector3(0, 0, 0);
+        }
+
+        if (!player.alive && !died)
+        {
+            player.head.GetComponent<Rigidbody>().isKinematic = false;
+            player.head.GetComponent<Rigidbody>().useGravity = true;
+            player.leftHand.GetComponent<Rigidbody>().isKinematic = false;
+            player.leftHand.GetComponent<Rigidbody>().useGravity = true;
+            player.leftHand.GetComponent<SphereCollider>().isTrigger = false;
+            player.rightHand.GetComponent<Rigidbody>().isKinematic = false;
+            player.rightHand.GetComponent<Rigidbody>().useGravity = true;
+            player.rightHand.GetComponent<SphereCollider>().isTrigger = false;
+            died = true;
         }
     }
 

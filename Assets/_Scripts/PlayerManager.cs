@@ -24,6 +24,7 @@ public class PlayerManager : NetworkBehaviour
     public void AddPlayer(Player player)
     {
         playerList.Add(player);
+        player.SetPlayerManager(this);
         if (numSab == 0 && numInno != 0)
         {
             player.role = RoleEnum.Saboteur;
