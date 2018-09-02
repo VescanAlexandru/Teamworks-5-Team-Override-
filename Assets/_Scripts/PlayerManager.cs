@@ -23,7 +23,7 @@ public class PlayerManager : NetworkBehaviour
     [Server]
     public void AddPlayer(Player player)
     {
-        playerList.Add(player);
+        PlayerManager.playerList.Add(player);
         if (numInno / numSab > ratioPlayersToSab && numInno % numSab == ratioPlayersToSab - 1)
         {
             player.role = RoleEnum.Saboteur;
