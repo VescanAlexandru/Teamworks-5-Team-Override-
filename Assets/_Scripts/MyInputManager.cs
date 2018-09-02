@@ -83,14 +83,17 @@ public class MyInputManager : MonoBehaviour {
             return;
         }
 
-        if (setInSpawn && player.alive)
+        if (setInSpawn)
         {
-            player.head.transform.position = head.transform.position;
-            player.head.transform.rotation = head.transform.rotation;
-            player.leftHand.transform.position = leftControllerTransform.position;
-            player.leftHand.transform.rotation = leftControllerTransform.rotation;
-            player.rightHand.transform.position = rightControllerTransform.position;
-            player.rightHand.transform.rotation = rightControllerTransform.rotation;
+            if (player.alive)
+            {
+                player.head.transform.position = head.transform.position;
+                player.head.transform.rotation = head.transform.rotation;
+                player.leftHand.transform.position = leftControllerTransform.position;
+                player.leftHand.transform.rotation = leftControllerTransform.rotation;
+                player.rightHand.transform.position = rightControllerTransform.position;
+                player.rightHand.transform.rotation = rightControllerTransform.rotation;
+            }
         } else
         {
             Debug.Log("Parent: " + playerContainer.position);
