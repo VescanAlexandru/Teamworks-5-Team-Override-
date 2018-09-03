@@ -127,6 +127,7 @@ public class Player : NetworkBehaviour {
         playerManager.RemovePlayer(this);
         head.GetComponent<Rigidbody>().isKinematic = false;
         head.GetComponent<Rigidbody>().useGravity = true;
+        head.GetComponent<SphereCollider>().isTrigger = false;
         leftHand.GetComponent<Rigidbody>().isKinematic = false;
         leftHand.GetComponent<Rigidbody>().useGravity = true;
         leftHand.GetComponent<SphereCollider>().isTrigger = false;
@@ -164,6 +165,7 @@ public class Player : NetworkBehaviour {
 
         head.GetComponent<Rigidbody>().isKinematic = false;
         head.GetComponent<Rigidbody>().useGravity = true;
+        head.GetComponent<SphereCollider>().isTrigger = false;
         leftHand.GetComponent<Rigidbody>().isKinematic = false;
         leftHand.GetComponent<Rigidbody>().useGravity = true;
         leftHand.GetComponent<SphereCollider>().isTrigger = false;
