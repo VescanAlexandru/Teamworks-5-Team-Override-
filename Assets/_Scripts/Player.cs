@@ -124,7 +124,6 @@ public class Player : NetworkBehaviour {
         DisablePlayer();
         alive = false;
         Debug.Log("Player has been eliminated");
-        playerManager.RemovePlayer(this);
         head.GetComponent<Rigidbody>().isKinematic = false;
         head.GetComponent<Rigidbody>().useGravity = true;
         head.GetComponent<SphereCollider>().isTrigger = false;
@@ -135,6 +134,7 @@ public class Player : NetworkBehaviour {
         rightHand.GetComponent<Rigidbody>().useGravity = true;
         rightHand.GetComponent<SphereCollider>().isTrigger = false;
         RpcProcessPlayerElimination();
+        playerManager.RemovePlayer(this);
         //show that this player is dead by placing player sideways on ground
     }
 
@@ -171,6 +171,24 @@ public class Player : NetworkBehaviour {
         leftHand.GetComponent<SphereCollider>().isTrigger = false;
         rightHand.GetComponent<Rigidbody>().isKinematic = false;
         rightHand.GetComponent<Rigidbody>().useGravity = true;
+        rightHand.GetComponent<SphereCollider>().isTrigger = false;
+    }
+
+    private void EliminationEffects()
+    {
+        Rigidbody headRigid = head.GetComponent<Rigidbody>();
+        Rigidbody leftRigid = leftHand.GetComponent<Rigidbody>();
+        Rigidbody rightRigid = rightHand.GetComponent<Rigidbody>();
+
+        headRigid.isKinematic = false;
+        headRigid.useGravity = true;
+        headRigid.freezeRotation = true;
+        head.GetComponent<SphereCollider>().isTrigger = false;
+        leftRigid.isKinematic = false;
+        leftRigid.useGravity = true;
+        leftHand.GetComponent<SphereCollider>().isTrigger = false;
+        rightRigid.isKinematic = false;
+        rightRigid.useGravity = true;
         rightHand.GetComponent<SphereCollider>().isTrigger = false;
     }
 
